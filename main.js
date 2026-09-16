@@ -13,6 +13,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { db } from "./supabaseClient.js";
+import { fetchChannelStats, fetchLatestVideos, isYouTubeConfigured } from "./youtubeClient.js";
 
 /* ============================================================
    1. UI helpers
@@ -446,7 +447,7 @@ function renderVideos(videos) {
           <h3 class="video-title">${v.title}</h3>
           <div class="video-meta">
             <span class="video-views">▲ ${v.views || "—"} views</span>
-            <span>${v.date || ""}</span>
+            <span>${v.date || v.publishedLabel || ""}</span>
           </div>
         </div>
       </a>`;
@@ -542,18 +543,43 @@ function initBoardForm() {
 async function bootData() {
   const status = await db.status();
   const online = status.enabled && status.online;
+  const ytReady = isYouTubeConfigured();
 
   if (statusReadout) {
-    statusReadout.textContent = online ? "LIVE // SYNCED" : "OFFLINE MODE // DEMO";
-    if (online) statusReadout.style.color = "var(--good)";
+    statusReadout.textContent = ytReady ? "LIVE // YOUTUBE SYNC" : online ? "LIVE // SYNCED" : "OFFLINE MODE // DEMO";
+    if (ytReady) statusReadout.style.color = "var(--cyan)";
+    else if (online) statusReadout.style.color = "var(--good)";
   }
   const note = $("#form-note");
   if (note) {
-    note.textContent = online
-      ? "Signal status: LIVE — connected to Supabase"
-      : "Signal status: OFFLINE MODE (demo data — add Supabase keys to go live)";
+    note.textContent = ytReady
+      ? "Signal status: LIVE — YouTube API connected"
+      : online
+        ? "Signal status: LIVE — connected to Supabase"
+        : "Signal status: OFFLINE MODE (demo data — add YouTube API key to go live)";
   }
 
+  /* --- Tier 1: YouTube Data API --- */
+  if (ytReady) {
+    try {
+      const [stats, ytVideos] = await Promise.all([
+        fetchChannelStats(),
+        fetchLatestVideos(12)
+      ]);
+      if (stats) animateCount(stats.subs);
+      else animateCount(await db.getSubCount());
+
+      if (ytVideos && ytVideos.length) {
+        renderVideos(ytVideos);
+        renderMessages(await db.getMessages());
+        return;
+      }
+    } catch (e) {
+      console.warn('[VOID] YouTube API fallback:', e);
+    }
+  }
+
+  /* --- Tier 2: Supabase / demo --- */
   const [subs, videos, messages] = await Promise.all([
     db.getSubCount(),
     db.getVideos(),
