@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOID XXX — Roblox Creator &amp; Gaming Edits</title>
+  <meta name="description" content="VOID XXX is a Roblox content creator and gaming edit channel. Neon edits, anime vibes and void energy. Subscribe for the next drop." />
+  <meta name="theme-color" content="#0a0a12" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230a0a12'/%3E%3Ctext x='50' y='70' font-size='56' text-anchor='middle' fill='%2300f0ff' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+      "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+    }
+  }
+  </script>
+  <script>
+    /* Runtime config — set SUPABASE_URL / SUPABASE_ANON_KEY to go live.
+       Empty values are safe: the site runs on built-in demo data. */
+    window.VOID_CONFIG = {
+      youtube: {
+        handle: "@Void-XXX-1",
+        url: "https://www.youtube.com/@Void-XXX-1",
+        subs: 24
+      },
+      supabase: {
+        url: "",
+        anonKey: ""
+      }
+    };
+  </script>
+</head>
+<body>
+  <noscript>
+    <div style="position:fixed;inset:0;display:grid;place-items:center;background:#0a0a12;color:#e8ecf4;font-family:monospace;padding:2rem;text-align:center;z-index:9999">
+      Enable JavaScript to enter the void. Meanwhile: <a href="https://www.youtube.com/@Void-XXX-1" style="color:#00f0ff">youtube.com/@Void-XXX-1</a>
+    </div>
+  </noscript>
+
+  <!-- HUD frame -->
+  <div class="hud" aria-hidden="true">
+    <i class="hud-corner tl"></i><i class="hud-corner tr"></i>
+    <i class="hud-corner bl"></i><i class="hud-corner br"></i>
+    <span class="hud-tick hud-tick-t"></span><span class="hud-tick hud-tick-b"></span>
+  </div>
+
+  <!-- Ambient background layers -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="nav-logo" href="#hero" aria-label="VOID XXX home">
+      <span class="nav-logo-mark">VOID<span class="accent">//</span>XXX</span>
+      <span class="nav-logo-sub">ROBLOX · EDITS · VOID</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#videos">Videos</a>
+      <a href="#board">Fan Board</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="btn btn-primary nav-sub" href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener">
+      Subscribe<span class="btn-glint" aria-hidden="true"></span>
+    </a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="stage" id="stage" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="hero-kicker" id="sysline"><span class="mono">SYS.ONLINE</span> // ROBLOX CREATOR · GAMING EDITS · ANIME VIBES</p>
+        <h1 class="hero-title" id="glitch-title" data-text="VOID XXX">VOID&nbsp;XXX</h1>
+        <p class="hero-tag">
+          Edits that hit like a cutscene. Roblox chaos, anime energy and pure void aesthetic —
+          new drops every week.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener">
+            Join the Void<span class="btn-glint" aria-hidden="true"></span>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="#videos">Watch edits</a>
+        </div>
+        <div class="hero-stats" id="hero-stats">
+          <div class="stat">
+            <span class="stat-value mono"><span id="sub-count">0</span>+</span>
+            <span class="stat-label">Subscribers</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value mono">24/7</span>
+            <span class="stat-label">In the void</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value mono">5<span class="accent">★</span></span>
+            <span class="stat-label">Edit energy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-readout mono" aria-hidden="true">
+        <span id="hud-scroll">SCRL 000%</span>
+        <span id="hud-status">SYNCING…</span>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="section-head reveal">
+        <p class="section-eyebrow mono">/// RECENT UPLOADS</p>
+        <h2 class="section-title">The <span class="accent">Drop</span> Feed</h2>
+        <p class="section-sub">Latest edits pulled from the channel — fresh from the void.</p>
+      </div>
+      <div class="video-grid" id="video-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- FAN BOARD -->
+    <section class="section" id="board">
+      <div class="section-head reveal">
+        <p class="section-eyebrow mono">/// TRANSMISSIONS</p>
+        <h2 class="section-title">Fan <span class="accent">Message</span> Board</h2>
+        <p class="section-sub">Leave a trace. The board keeps every signal sent from the void.</p>
+      </div>
+
+      <div class="board-wrap reveal">
+        <div class="board-rows" id="board-rows" aria-live="polite"></div>
+        <div class="board-fade" aria-hidden="true"></div>
+      </div>
+
+      <form class="board-form reveal" id="board-form">
+        <input type="text" id="board-name" maxlength="24" placeholder="Handle (optional)" autocomplete="nickname" aria-label="Your name" />
+        <input type="text" id="board-message" maxlength="140" placeholder="Send a message into the void…" aria-label="Your message" required />
+        <button class="btn btn-primary" type="submit">Transmit</button>
+      </form>
+      <p class="form-note mono" id="form-note">Signal status: OFFLINE MODE (demo data)</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="section-head reveal">
+        <p class="section-eyebrow mono">/// SIGNAL SOURCE</p>
+        <h2 class="section-title">Inside the <span class="accent">Void</span></h2>
+      </div>
+      <div class="about-grid">
+        <article class="glass-card reveal">
+          <h3>What this channel is</h3>
+          <p>High-energy Roblox gameplay cut with anime-grade edit pacing. Every video is a 60-second burst of
+             color, motion and chaos — built for the scroll and crafted to be replayed.</p>
+        </article>
+        <article class="glass-card reveal">
+          <h3>What you get here</h3>
+          <ul class="feature-list">
+            <li>Weekly Roblox edits &amp; montages</li>
+            <li>Anime tribute cuts &amp; mashup edits</li>
+            <li>Zero filler, all void energy</li>
+            <li>Subscriber shout-outs on the board</li>
+          </ul>
+        </article>
+        <article class="glass-card reveal">
+          <h3>Join the climb</h3>
+          <p>Target: growing from <span class="mono accent">24+</span> subs into a real community. Every subscribe
+             reported from here is part of the count on the hero screen — and the Count is live, synced
+             through Supabase when configured.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">VOID<span class="accent">//</span>XXX</p>
+    <p class="footer-note">© 2026 VOID XXX · Built in the void · <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener">youtube.com/@Void-XXX-1</a></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="supabaseClient.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "void-xxx-portfolio",
+  "version": "1.0.0",
+  "description": "VOID XXX — 3D interactive portfolio for a Roblox & gaming edits YouTube channel. Cyberpunk void aesthetic, Three.js neon scene, Supabase-ready fan board.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "roblox",
+    "portfolio",
+    "threejs",
+    "cyberpunk",
+    "youtube",
+    "supabase"
+  ]
+}
