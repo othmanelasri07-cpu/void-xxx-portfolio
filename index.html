@@ -1,189 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VOID XXX — Roblox Creator &amp; Gaming Edits</title>
-  <meta name="description" content="VOID XXX is a Roblox content creator and gaming edit channel. Neon edits, anime vibes and void energy. Subscribe for the next drop." />
-  <meta name="theme-color" content="#0a0a12" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230a0a12'/%3E%3Ctext x='50' y='70' font-size='56' text-anchor='middle' fill='%2300f0ff' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
-      "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
-    }
-  }
-  </script>
-  <script>
-    /* Runtime config — set SUPABASE_URL / SUPABASE_ANON_KEY to go live.
-       Empty values are safe: the site runs on built-in demo data. */
-    window.VOID_CONFIG = {
-      youtube: {
-        handle: "@Void-XXX-1",
-        channelId: "UCBW8q5FPFzDv33j6O-__rkg",
-        uploadsPlaylistId: "UUBW8q5FPFzDv33j6O-__rkg",
-        apiKey: "",
-        url: "https://www.youtube.com/@Void-XXX-1",
-        subs: 24
-      },
-      supabase: {
-        url: "",
-        anonKey: ""
-      }
-    };
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VOID XXX — Roblox Gaming Edits Portfolio. Watch the latest edits, connect, and join the void.">
+  <meta property="og:title" content="VOID XXX — Gaming Redefined">
+  <meta property="og:description" content="Roblox Gaming Edits Portfolio — Enter the Void">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://img.youtube.com/vi/bVDc7NIMnIs/maxresdefault.jpg">
+  <meta name="theme-color" content="#00f0ff">
+  <title>VOID XXX — Gaming Redefined</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Critical CSS - loading screen */
+    .loading-screen{position:fixed;inset:0;z-index:99999;background:#0a0a0f;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .6s,visibility .6s}.loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}.loader-ring{width:80px;height:80px;border:3px solid rgba(0,240,255,.1);border-top-color:#00f0ff;border-radius:50%;animation:spin 1s linear infinite}.loader-text{margin-top:20px;font-family:'Orbitron',monospace;color:#00f0ff;font-size:14px;letter-spacing:4px;text-transform:uppercase;animation:pulse-glow 1.5s ease-in-out infinite}.loader-bar{width:200px;height:2px;background:rgba(0,240,255,.15);margin-top:12px;border-radius:1px;overflow:hidden}.loader-bar-fill{height:100%;background:linear-gradient(90deg,#00f0ff,#bf00ff);width:0%;transition:width .3s;border-radius:1px}
+  </style>
 </head>
 <body>
-  <noscript>
-    <div style="position:fixed;inset:0;display:grid;place-items:center;background:#0a0a12;color:#e8ecf4;font-family:monospace;padding:2rem;text-align:center;z-index:9999">
-      Enable JavaScript to enter the void. Meanwhile: <a href="https://www.youtube.com/@Void-XXX-1" style="color:#00f0ff">youtube.com/@Void-XXX-1</a>
-    </div>
-  </noscript>
-
-  <!-- HUD frame -->
-  <div class="hud" aria-hidden="true">
-    <i class="hud-corner tl"></i><i class="hud-corner tr"></i>
-    <i class="hud-corner bl"></i><i class="hud-corner br"></i>
-    <span class="hud-tick hud-tick-t"></span><span class="hud-tick hud-tick-b"></span>
+  <!-- LOADING SCREEN -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Entering the Void</div>
+    <div class="loader-bar"><div class="loader-bar-fill" id="loaderBar"></div></div>
   </div>
 
-  <!-- Ambient background layers -->
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow" aria-hidden="true"></div>
-  <div class="scanlines" aria-hidden="true"></div>
+  <!-- NOISE OVERLAY -->
+  <div class="noise-overlay" aria-hidden="true"></div>
 
-  <header class="nav" id="nav">
-    <a class="nav-logo" href="#hero" aria-label="VOID XXX home">
-      <span class="nav-logo-mark">VOID<span class="accent">//</span>XXX</span>
-      <span class="nav-logo-sub">ROBLOX · EDITS · VOID</span>
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- FLOATING PARTICLES CANVAS -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="VOID XXX Home">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">VOID<span class="logo-accent">XXX</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active" data-section="home">
+          <span class="nav-link-icon">◈</span>Home
+        </a>
+        <a href="#videos" class="nav-link" data-section="videos">
+          <span class="nav-link-icon">▶</span>Videos
+        </a>
+        <a href="#about" class="nav-link" data-section="about">
+          <span class="nav-link-icon">◎</span>About
+        </a>
+        <a href="#stats" class="nav-link" data-section="stats">
+          <span class="nav-link-icon">▣</span>Stats
+        </a>
+        <a href="#contact" class="nav-link" data-section="contact">
+          <span class="nav-link-icon">✉</span>Contact
+        </a>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-btn theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <span class="theme-icon-dark">☀</span>
+          <span class="theme-icon-light">☾</span>
+        </button>
+        <button class="nav-btn sound-toggle" id="soundToggle" aria-label="Toggle sound" title="Toggle sound">
+          <span class="sound-on">♪</span>
+          <span class="sound-off">♪̸</span>
+        </button>
+        <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener" class="nav-btn subscribe-btn">
+          Subscribe
+        </a>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="#home" class="mobile-link" data-section="home">◈ Home</a>
+      <a href="#videos" class="mobile-link" data-section="videos">▶ Videos</a>
+      <a href="#about" class="mobile-link" data-section="about">◎ About</a>
+      <a href="#stats" class="mobile-link" data-section="stats">▣ Stats</a>
+      <a href="#contact" class="mobile-link" data-section="contact">✉ Contact</a>
+      <div class="mobile-social">
+        <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+        <a href="https://www.tiktok.com/@swiggis" target="_blank" rel="noopener" aria-label="TikTok">♫</a>
+        <a href="https://x.com/SwiggySwag" target="_blank" rel="noopener" aria-label="X">𝕏</a>
+        <a href="https://www.instagram.com/swiggisyt/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SOCIAL SIDEBAR ===== -->
+  <div class="social-sidebar" id="socialSidebar" aria-label="Social media links">
+    <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener" class="social-icon youtube" aria-label="YouTube" title="YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#videos">Videos</a>
-      <a href="#board">Fan Board</a>
-      <a href="#about">About</a>
-    </nav>
-    <a class="btn btn-primary nav-sub" href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener">
-      Subscribe<span class="btn-glint" aria-hidden="true"></span>
+    <a href="https://www.tiktok.com/@swiggis" target="_blank" rel="noopener" class="social-icon tiktok" aria-label="TikTok" title="TikTok">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
     </a>
-  </header>
+    <a href="https://x.com/SwiggySwag" target="_blank" rel="noopener" class="social-icon twitter" aria-label="X / Twitter" title="X / Twitter">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/swiggisyt/" target="_blank" rel="noopener" class="social-icon instagram" aria-label="Instagram" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://www.kick.com/swiggis" target="_blank" rel="noopener" class="social-icon kick" aria-label="Kick" title="Kick">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.216 0A6.21 6.21 0 000 6.216v11.568A6.21 6.21 0 006.216 24h5.478V14.64h-3.12V9.36h3.12V5.43c0-3.15 1.92-4.87 4.74-4.87.93 0 2.1.03 2.37.06v3.72h-1.62c-1.27 0-1.51.6-1.51 1.48v2.54h3.78l-.48 5.28h-3.3V24h6.48A6.21 6.21 0 0024 17.784V6.216A6.21 6.21 0 0017.784 0z"/></svg>
+    </a>
+    <a href="https://www.twitch.tv/swiggis" target="_blank" rel="noopener" class="social-icon twitch" aria-label="Twitch" title="Twitch">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+    </a>
+    <div class="social-label">SWIGGIS</div>
+  </div>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="stage" id="stage" aria-hidden="true"></div>
-      <div class="hero-scrim" aria-hidden="true"></div>
-
-      <div class="hero-content">
-        <p class="hero-kicker" id="sysline"><span class="mono">SYS.ONLINE</span> // ROBLOX CREATOR · GAMING EDITS · ANIME VIBES</p>
-        <h1 class="hero-title" id="glitch-title" data-text="VOID XXX">VOID&nbsp;XXX</h1>
-        <p class="hero-tag">
-          Edits that hit like a cutscene. Roblox chaos, anime energy and pure void aesthetic —
-          new drops every week.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener">
-            Join the Void<span class="btn-glint" aria-hidden="true"></span>
-          </a>
-          <a class="btn btn-ghost btn-lg" href="#videos">Watch edits</a>
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span id="heroStatus">SYSTEM ONLINE</span>
+      </div>
+      <h1 class="hero-title" id="heroTitle">
+        <span class="title-line title-line-1">GAMING</span>
+        <span class="title-line title-line-2 glitch-text" data-text="REDEFINED">REDEFINED</span>
+      </h1>
+      <p class="hero-subtitle">Enter the Metagame Layer<br>Unleash the Play Economy</p>
+      <div class="hero-stats" id="heroStats">
+        <div class="stat-card" data-count-to="26" data-suffix="">
+          <div class="stat-value"><span class="stat-number" data-target="26">0</span></div>
+          <div class="stat-label">Subscribers</div>
         </div>
-        <div class="hero-stats" id="hero-stats">
-          <div class="stat">
-            <span class="stat-value mono"><span id="sub-count">0</span>+</span>
-            <span class="stat-label">Subscribers</span>
+        <div class="stat-card" data-count-to="1537" data-suffix="">
+          <div class="stat-value"><span class="stat-number" data-target="1537">0</span></div>
+          <div class="stat-label">Views</div>
+        </div>
+        <div class="stat-card" data-count-to="7" data-suffix="">
+          <div class="stat-value"><span class="stat-number" data-target="7">0</span></div>
+          <div class="stat-label">Videos</div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener" class="btn btn-primary">
+          <span class="btn-icon">▶</span> Watch Trailer
+        </a>
+        <a href="#videos" class="btn btn-ghost">
+          <span class="btn-icon">◈</span> Explore Edits
+        </a>
+      </div>
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
+        <span>Scroll Down</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEOS SECTION ===== -->
+  <section class="section videos-section" id="videos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// LATEST EDITS</span>
+        <h2 class="section-title">
+          <span class="title-accent">▶</span> Featured Videos
+        </h2>
+        <div class="section-controls">
+          <div class="search-box">
+            <input type="text" id="videoSearch" placeholder="Search videos..." class="search-input" aria-label="Search videos">
+            <span class="search-icon">⌕</span>
           </div>
-          <div class="stat">
-            <span class="stat-value mono">24/7</span>
-            <span class="stat-label">In the void</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value mono">5<span class="accent">★</span></span>
-            <span class="stat-label">Edit energy</span>
+          <div class="sort-controls">
+            <button class="sort-btn active" data-sort="date">Latest</button>
+            <button class="sort-btn" data-sort="views">Popular</button>
           </div>
         </div>
       </div>
-
-      <div class="hero-readout mono" aria-hidden="true">
-        <span id="hud-scroll">SCRL 000%</span>
-        <span id="hud-status">SYNCING…</span>
+      <div class="video-grid" id="videoGrid">
+        <!-- Skeleton loaders -->
+        <div class="video-card skeleton"><div class="skeleton-thumb"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
+        <div class="video-card skeleton"><div class="skeleton-thumb"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
+        <div class="video-card skeleton"><div class="skeleton-thumb"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
+        <div class="video-card skeleton"><div class="skeleton-thumb"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
+        <div class="video-card skeleton"><div class="skeleton-thumb"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
+        <div class="video-card skeleton"><div class="skeleton-thumb"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
       </div>
-    </section>
-
-    <!-- VIDEOS -->
-    <section class="section" id="videos">
-      <div class="section-head reveal">
-        <p class="section-eyebrow mono">/// RECENT UPLOADS</p>
-        <h2 class="section-title">The <span class="accent">Drop</span> Feed</h2>
-        <p class="section-sub">Latest edits pulled from the channel — fresh from the void.</p>
+      <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+        <button class="btn btn-ghost" id="loadMoreBtn">Load More Videos</button>
       </div>
-      <div class="video-grid" id="video-grid" aria-live="polite"></div>
-    </section>
+    </div>
+  </section>
 
-    <!-- FAN BOARD -->
-    <section class="section" id="board">
-      <div class="section-head reveal">
-        <p class="section-eyebrow mono">/// TRANSMISSIONS</p>
-        <h2 class="section-title">Fan <span class="accent">Message</span> Board</h2>
-        <p class="section-sub">Leave a trace. The board keeps every signal sent from the void.</p>
-      </div>
-
-      <div class="board-wrap reveal">
-        <div class="board-rows" id="board-rows" aria-live="polite"></div>
-        <div class="board-fade" aria-hidden="true"></div>
-      </div>
-
-      <form class="board-form reveal" id="board-form">
-        <input type="text" id="board-name" maxlength="24" placeholder="Handle (optional)" autocomplete="nickname" aria-label="Your name" />
-        <input type="text" id="board-message" maxlength="140" placeholder="Send a message into the void…" aria-label="Your message" required />
-        <button class="btn btn-primary" type="submit">Transmit</button>
-      </form>
-      <p class="form-note mono" id="form-note">Signal status: OFFLINE MODE (demo data)</p>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section" id="about">
-      <div class="section-head reveal">
-        <p class="section-eyebrow mono">/// SIGNAL SOURCE</p>
-        <h2 class="section-title">Inside the <span class="accent">Void</span></h2>
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="section about-section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// IDENTITY</span>
+        <h2 class="section-title">
+          <span class="title-accent">◎</span> About VOID XXX
+        </h2>
       </div>
       <div class="about-grid">
-        <article class="glass-card reveal">
-          <h3>What this channel is</h3>
-          <p>High-energy Roblox gameplay cut with anime-grade edit pacing. Every video is a 60-second burst of
-             color, motion and chaos — built for the scroll and crafted to be replayed.</p>
-        </article>
-        <article class="glass-card reveal">
-          <h3>What you get here</h3>
-          <ul class="feature-list">
-            <li>Weekly Roblox edits &amp; montages</li>
-            <li>Anime tribute cuts &amp; mashup edits</li>
-            <li>Zero filler, all void energy</li>
-            <li>Subscriber shout-outs on the board</li>
-          </ul>
-        </article>
-        <article class="glass-card reveal">
-          <h3>Join the climb</h3>
-          <p>Target: growing from <span class="mono accent">24+</span> subs into a real community. Every subscribe
-             reported from here is part of the count on the hero screen — and the Count is live, synced
-             through Supabase when configured.</p>
-        </article>
+        <div class="about-visual">
+          <div class="avatar-container">
+            <img src="https://yt3.googleusercontent.com/bVDc7NIMnIs/s100-c-k-c0x00ffffff-no-rj" alt="VOID XXX Avatar" class="about-avatar" id="aboutAvatar" loading="lazy">
+            <div class="avatar-ring"></div>
+            <div class="avatar-pulse"></div>
+          </div>
+          <div class="about-3d-container" id="about3d">
+            <!-- Three.js renders here -->
+          </div>
+        </div>
+        <div class="about-content">
+          <h3 class="about-name">The Void Walker</h3>
+          <p class="about-role">Roblox Gaming Edits Creator</p>
+          <div class="about-bio">
+            <p>10+ Alternative ROBlox content. Creating high-energy gaming edits, from noob to pro montages, anime-style fight scenes, and cinematic Roblox moments.</p>
+            <p>Every edit is a journey through the void — where gaming meets art.</p>
+          </div>
+          <div class="about-tags">
+            <span class="tag">Roblox</span>
+            <span class="tag">Gaming Edits</span>
+            <span class="tag">Montages</span>
+            <span class="tag">Anime Style</span>
+            <span class="tag">Cinematic</span>
+          </div>
+          <div class="about-actions">
+            <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Subscribe on YouTube
+            </a>
+            <button class="btn btn-ghost btn-sm" id="copyChannelBtn">
+              <span>📋</span> Copy Channel Link
+            </button>
+          </div>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
+  <!-- ===== STATS SECTION ===== -->
+  <section class="section stats-section" id="stats">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// ANALYTICS</span>
+        <h2 class="section-title">
+          <span class="title-accent">▣</span> Channel Stats
+        </h2>
+      </div>
+      <div class="stats-dashboard">
+        <div class="stat-big-card" data-reveal>
+          <div class="stat-big-icon">👥</div>
+          <div class="stat-big-value" id="statSubscribers">--</div>
+          <div class="stat-big-label">Subscribers</div>
+          <div class="stat-big-bar"><div class="stat-big-bar-fill" style="--target-width: 52%"></div></div>
+          <div class="stat-big-detail">Next milestone: 50</div>
+        </div>
+        <div class="stat-big-card" data-reveal>
+          <div class="stat-big-icon">👁</div>
+          <div class="stat-big-value" id="statViews">--</div>
+          <div class="stat-big-label">Total Views</div>
+          <div class="stat-big-bar"><div class="stat-big-bar-fill" style="--target-width: 75%"></div></div>
+          <div class="stat-big-detail">Next milestone: 2K</div>
+        </div>
+        <div class="stat-big-card" data-reveal>
+          <div class="stat-big-icon">🎬</div>
+          <div class="stat-big-value" id="statVideos">--</div>
+          <div class="stat-big-label">Videos Published</div>
+          <div class="stat-big-bar"><div class="stat-big-bar-fill" style="--target-width: 35%"></div></div>
+          <div class="stat-big-detail">Keep creating!</div>
+        </div>
+        <div class="stat-big-card" data-reveal>
+          <div class="stat-big-icon">⚡</div>
+          <div class="stat-big-value" id="statAvgViews">--</div>
+          <div class="stat-big-label">Avg Views/Video</div>
+          <div class="stat-big-bar"><div class="stat-big-bar-fill" style="--target-width: 60%"></div></div>
+          <div class="stat-big-detail">Growing steadily</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP SECTION ===== -->
+  <section class="section roadmap-section" id="roadmap">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// ROADMAP</span>
+        <h2 class="section-title">
+          <span class="title-accent">◇</span> The Journey
+        </h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item completed" data-reveal>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Phase 1 — Started</div>
+            <h3>First Edits</h3>
+            <p>Launched the channel with Roblox gaming edits, building the foundation of the VOID community.</p>
+          </div>
+        </div>
+        <div class="timeline-item active" data-reveal>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Phase 2 — Now</div>
+            <h3>Growing the Void</h3>
+            <p>Expanding content quality, building the 3D portfolio, connecting with the community.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-reveal>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Phase 3 — Next</div>
+            <h3>100 Subscribers</h3>
+            <p>Reaching the first major milestone. Special milestone edit celebration.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-reveal>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Phase 4 — Future</div>
+            <h3>Void Empire</h3>
+            <p>Collaborations, merch, live streams, and taking the VOID brand to the next level.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ SECTION ===== -->
+  <section class="section faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// FAQ</span>
+        <h2 class="section-title">
+          <span class="title-accent">?</span> Questions
+        </h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item" data-reveal>
+          <button class="faq-trigger" aria-expanded="false">
+            <span>What software do you use for edits?</span>
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><p>CapCut, After Effects, Blender for 3D elements, and various Roblox studio tools for recording gameplay.</p></div>
+        </div>
+        <div class="faq-item" data-reveal>
+          <button class="faq-trigger" aria-expanded="false">
+            <span>Can I submit a fan edit?</span>
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><p>Absolutely! Tag me on social media or send a message in the contact section below. I feature the best fan edits!</p></div>
+        </div>
+        <div class="faq-item" data-reveal>
+          <button class="faq-trigger" aria-expanded="false">
+            <span>How often do you upload?</span>
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><p>I aim for 1-2 quality edits per week. Quality over quantity — every VOID edit hits different.</p></div>
+        </div>
+        <div class="faq-item" data-reveal>
+          <button class="faq-trigger" aria-expanded="false">
+            <span>Do you do collaborations?</span>
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><p>Yes! If you're a fellow Roblox content creator, reach out through the contact section or DM me on socials.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / FAN BOARD SECTION ===== -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// CONNECT</span>
+        <h2 class="section-title">
+          <span class="title-accent">✉</span> Fan Board
+        </h2>
+      </div>
+      <div class="contact-grid">
+        <div class="fan-form-wrap" data-reveal>
+          <h3>Leave a Message</h3>
+          <form id="fanForm" class="fan-form">
+            <div class="form-group">
+              <input type="text" id="fanName" placeholder="Your Name" required class="form-input" maxlength="50">
+            </div>
+            <div class="form-group">
+              <textarea id="fanMessage" placeholder="Your message to VOID XXX..." required class="form-input form-textarea" maxlength="500" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <span class="btn-icon">✉</span> Send Message
+            </button>
+          </form>
+        </div>
+        <div class="fan-messages-wrap" data-reveal>
+          <h3>Fan Messages</h3>
+          <div class="fan-messages" id="fanMessages">
+            <div class="fan-msg skeleton-msg"><div class="skeleton-text"></div><div class="skeleton-text short"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer class="footer">
-    <p class="footer-brand">VOID<span class="accent">//</span>XXX</p>
-    <p class="footer-note">© 2026 VOID XXX · Built in the void · <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener">youtube.com/@Void-XXX-1</a></p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">VOID<span class="logo-accent">XXX</span></span>
+        <p class="footer-tagline">Gaming Redefined.</p>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@Void-XXX-1" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+        <a href="https://www.tiktok.com/@swiggis" target="_blank" rel="noopener" aria-label="TikTok">♫</a>
+        <a href="https://x.com/SwiggySwag" target="_blank" rel="noopener" aria-label="X">𝕏</a>
+        <a href="https://www.instagram.com/swiggisyt/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+        <a href="https://www.kick.com/swiggis" target="_blank" rel="noopener" aria-label="Kick">K</a>
+        <a href="https://www.twitch.tv/swiggis" target="_blank" rel="noopener" aria-label="Twitch">T</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 VOID XXX. All rights reserved. Built with ♥ and Three.js</p>
+      </div>
+    </div>
   </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
-  <script type="module" src="supabaseClient.js"></script>
+  <!-- ===== VIDEO MODAL ===== -->
+  <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Video player" style="display:none">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-video-wrap">
+        <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="modal-info">
+        <h3 id="modalTitle"></h3>
+        <div class="modal-meta">
+          <span id="modalViews"></span>
+          <span id="modalDate"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- ===== SHARE BUTTON ===== -->
+  <button class="share-btn" id="shareBtn" aria-label="Share" title="Share this page">↗</button>
+
+  <!-- ===== KEYBOARD SHORTCUTS HELP ===== -->
+  <div class="shortcuts-panel" id="shortcutsPanel" style="display:none">
+    <div class="shortcuts-inner">
+      <h3>Keyboard Shortcuts</h3>
+      <div class="shortcut-row"><kbd>?</kbd> Toggle this panel</div>
+      <div class="shortcut-row"><kbd>H</kbd> Home</div>
+      <div class="shortcut-row"><kbd>V</kbd> Videos</div>
+      <div class="shortcut-row"><kbd>A</kbd> About</div>
+      <div class="shortcut-row"><kbd>S</kbd> Stats</div>
+      <div class="shortcut-row"><kbd>C</kbd> Contact</div>
+      <div class="shortcut-row"><kbd>T</kbd> Toggle theme</div>
+      <div class="shortcut-row"><kbd>Esc</kbd> Close panel/modal</div>
+    </div>
+  </div>
+
+  <!-- ===== COOKIE CONSENT ===== -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p>🍪 This site uses cookies for analytics. <a href="#">Learn more</a></p>
+    <button class="btn btn-ghost btn-sm" id="cookieAccept">Accept</button>
+  </div>
+
+  <!-- ===== EASTER EGG ===== -->
+  <div class="easter-egg-overlay" id="easterEgg" style="display:none">
+    <div class="easter-egg-content">
+      <h2>🎉 VOID MODE ACTIVATED</h2>
+      <p>You found the secret! Konami code FTW.</p>
+      <button class="btn btn-primary" id="easterEggClose">Nice!</button>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
   <script type="module" src="main.js"></script>
 </body>
 </html>
