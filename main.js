@@ -9,9 +9,15 @@ import { isYouTubeConfigured, fetchChannelStats, fetchLatestVideos } from './you
 /* ================================================================
    FEATURE 1-3: Config & Constants
    ================================================================ */
-window.VOID_CONFIG = window.VOID_CONFIG || {};
+window.VOID_CONFIG = window.VOID_CONFIG || {
+  youtube: {
+    apiKey: 'AIzaSyCw2ENS855lZ6gJCwvzOTBTrNv5T307Dw8',
+    channelId: 'UCBW8q5FPFzDv33j6O-__rkg',
+    uploadsPlaylistId: 'UUBW8q5FPFzDv33j6O-__rkg'
+  }
+};
 const CFG = window.VOID_CONFIG;
-const CHANNEL_ID = 'UCBW8q5FPFzDv33j6O-__rkg';
+const CHANNEL_ID = CFG.youtube.channelId;
 const YT_HANDLE = '@Void-XXX-1';
 
 /* Demo fallback data */
